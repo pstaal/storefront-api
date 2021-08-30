@@ -2,6 +2,9 @@ import client from "../database";
 import bcrypt from 'bcrypt';
 import dotenv from 'dotenv';
 
+dotenv.config();
+
+
 const pepper = process.env.BCRYPT_PASSWORD;
 const saltRounds = process.env.SALT_ROUNDS;
 

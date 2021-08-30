@@ -1,24 +1,65 @@
 import express, { Request, Response } from "express";
 import { User, UserStore } from "../models/user";
+import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
 
 const store = new UserStore();
 
+dotenv.config();
+
+
 const index = async (req: Request, res: Response) => {
+  try {
+    const authorizationHeader = req.headers.authorization
+    const token = authorizationHeader.split(' ')[1]
+    jwt.verify(token, process.env.TOKEN_SECRET)
+  } catch (err) {
+    res.status(401)
+    res.json('Access denied, invalid token')
+    return
+  }
+
   const users = await store.index();
   res.json(users);
 }
 
 const show = async (req: Request, res: Response) => {
+  try {
+    const authorizationHeader = req.headers.authorization
+    const token = authorizationHeader.split(' ')[1]
+    jwt.verify(token, process.env.TOKEN_SECRET)
+  } catch (err) {
+    res.status(401)
+    res.json('Access denied, invalid token')
+    return
+  }
+
   const user = await store.show(req.params.id);
   res.json(user);
 }
 
 const authenticate = async (req: Request, res: Response) => {
-  const user = await store.authenticate(req.body.firstName, req.body.lastName, req.body.password);
-  res.json(user);
+  try {
+    const u = await store.authenticate(req.body.firstName, req.body.lastName, req.body.password)
+    var token = jwt.sign({ user: u }, process.env.TOKEN_SECRET);
+    res.json(token)
+  } catch (error) {
+    res.status(401)
+    res.json({ error })
+  }
 }
 
 const create = async (req: Request, res: Response) => {
+  try {
+    const authorizationHeader = req.headers.authorization
+    const token = authorizationHeader.split(' ')[1]
+    jwt.verify(token, process.env.TOKEN_SECRET)
+  } catch (err) {
+    res.status(401)
+    res.json('Access denied, invalid token')
+    return
+  }
+
   try {
     const user: User = {
       firstName: req.body.firstName,
@@ -27,7 +68,8 @@ const create = async (req: Request, res: Response) => {
     }
 
     const newUser = await store.create(user)
-    res.json(newUser)
+    var token = jwt.sign({ user: newUser }, process.env.TOKEN_SECRET);
+    res.json(token)
   } catch (err) {
     res.status(400)
     res.json(err)
