@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 const pepper = process.env.BCRYPT_PASSWORD;
 const saltRounds = process.env.SALT_ROUNDS;
 
-export type User {
+export type User = {
   id: Number,
   firstName: String,
   lastName: String,
