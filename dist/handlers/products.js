@@ -41,7 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var product_1 = require("../models/product");
 var dotenv_1 = __importDefault(require("dotenv"));
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var store = new product_1.ProductStore();
 dotenv_1["default"].config();
 var index = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -69,39 +68,27 @@ var show = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
     });
 }); };
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var authorizationHeader, token, product, newProduct, err_1;
+    var product, newProduct, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                try {
-                    authorizationHeader = req.headers.authorization;
-                    token = authorizationHeader.split(' ')[1];
-                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
-                }
-                catch (err) {
-                    res.status(401);
-                    res.json('Access denied, invalid token');
-                    return [2 /*return*/];
-                }
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
+                _a.trys.push([0, 2, , 3]);
                 product = {
                     name: req.body.name,
                     price: req.body.price,
                     category: req.body.category
                 };
                 return [4 /*yield*/, store.create(product)];
-            case 2:
+            case 1:
                 newProduct = _a.sent();
                 res.json(newProduct);
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 err_1 = _a.sent();
                 res.status(400);
                 res.json(err_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
