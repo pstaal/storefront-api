@@ -42,6 +42,8 @@ exports.__esModule = true;
 exports.UserStore = void 0;
 var database_1 = __importDefault(require("../database"));
 var bcrypt_1 = __importDefault(require("bcrypt"));
+var dotenv_1 = __importDefault(require("dotenv"));
+dotenv_1["default"].config();
 var pepper = process.env.BCRYPT_PASSWORD;
 var saltRounds = process.env.SALT_ROUNDS;
 var UserStore = /** @class */ (function () {

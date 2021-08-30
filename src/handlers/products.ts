@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { Product, ProductStore } from "../models/product";
 import dotenv from 'dotenv';
+import jwt from "jsonwebtoken";
 
 const store = new ProductStore();
 

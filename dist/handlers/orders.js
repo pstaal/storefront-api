@@ -35,14 +35,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var order_1 = require("../models/order");
+var dotenv_1 = __importDefault(require("dotenv"));
+var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 var store = new order_1.OrderStore();
+dotenv_1["default"].config();
 var getCurrent = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var order;
+    var authorizationHeader, token, order;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.currentOrderUser(req.params.id)];
+            case 0:
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json('Access denied, invalid token');
+                    return [2 /*return*/];
+                }
+                return [4 /*yield*/, store.currentOrderUser(req.params.id)];
             case 1:
                 order = _a.sent();
                 res.json(order);
@@ -51,10 +68,21 @@ var getCurrent = function (req, res) { return __awaiter(void 0, void 0, void 0, 
     });
 }); };
 var getCompleted = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var orders;
+    var authorizationHeader, token, orders;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.completedOrderUser(req.params.id)];
+            case 0:
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json('Access denied, invalid token');
+                    return [2 /*return*/];
+                }
+                return [4 /*yield*/, store.completedOrderUser(req.params.id)];
             case 1:
                 orders = _a.sent();
                 res.json(orders);

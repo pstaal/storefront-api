@@ -35,14 +35,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var user_1 = require("../models/user");
+var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+var dotenv_1 = __importDefault(require("dotenv"));
 var store = new user_1.UserStore();
+dotenv_1["default"].config();
 var index = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var users;
+    var authorizationHeader, token, users;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.index()];
+            case 0:
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json('Access denied, invalid token');
+                    return [2 /*return*/];
+                }
+                return [4 /*yield*/, store.index()];
             case 1:
                 users = _a.sent();
                 res.json(users);
@@ -51,10 +68,21 @@ var index = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
     });
 }); };
 var show = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user;
+    var authorizationHeader, token, user;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, store.show(req.params.id)];
+            case 0:
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token = authorizationHeader.split(' ')[1];
+                    jsonwebtoken_1["default"].verify(token, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json('Access denied, invalid token');
+                    return [2 /*return*/];
+                }
+                return [4 /*yield*/, store.show(req.params.id)];
             case 1:
                 user = _a.sent();
                 res.json(user);
@@ -63,39 +91,61 @@ var show = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
     });
 }); };
 var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, store.authenticate(req.body.firstName, req.body.lastName, req.body.password)];
-            case 1:
-                user = _a.sent();
-                res.json(user);
-                return [2 /*return*/];
-        }
-    });
-}); };
-var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, newUser, err_1;
+    var u, token, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, store.authenticate(req.body.firstName, req.body.lastName, req.body.password)];
+            case 1:
+                u = _a.sent();
+                token = jsonwebtoken_1["default"].sign({ user: u }, process.env.TOKEN_SECRET);
+                res.json(token);
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                res.status(401);
+                res.json({ error: error_1 });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var authorizationHeader, token_1, user, newUser, token, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                try {
+                    authorizationHeader = req.headers.authorization;
+                    token_1 = authorizationHeader.split(' ')[1];
+                    jsonwebtoken_1["default"].verify(token_1, process.env.TOKEN_SECRET);
+                }
+                catch (err) {
+                    res.status(401);
+                    res.json('Access denied, invalid token');
+                    return [2 /*return*/];
+                }
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
                 user = {
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     password: req.body.password
                 };
                 return [4 /*yield*/, store.create(user)];
-            case 1:
-                newUser = _a.sent();
-                res.json(newUser);
-                return [3 /*break*/, 3];
             case 2:
+                newUser = _a.sent();
+                token = jsonwebtoken_1["default"].sign({ user: newUser }, process.env.TOKEN_SECRET);
+                res.json(token);
+                return [3 /*break*/, 4];
+            case 3:
                 err_1 = _a.sent();
                 res.status(400);
                 res.json(err_1);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
