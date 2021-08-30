@@ -13,6 +13,11 @@ const show = async (req: Request, res: Response) => {
   res.json(user);
 }
 
+const authenticate = async (req: Request, res: Response) => {
+  const user = await store.authenticate(req.body.firstName, req.body.lastName, req.body.password);
+  res.json(user);
+}
+
 const create = async (req: Request, res: Response) => {
   try {
     const user: User = {
@@ -32,7 +37,8 @@ const create = async (req: Request, res: Response) => {
 const user_routes = (app: express.Application) => {
   app.get('/users', index);
   app.get('users/:id', show);
-  app.post('/users', create)
+  app.post('/users', create);
+  app.post('/authenticate', authenticate);
 }
 
 

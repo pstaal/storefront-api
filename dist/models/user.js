@@ -41,6 +41,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.UserStore = void 0;
 var database_1 = __importDefault(require("../database"));
+var bcrypt_1 = __importDefault(require("bcrypt"));
+var pepper = process.env.BCRYPT_PASSWORD;
+var saltRounds = process.env.SALT_ROUNDS;
 var UserStore = /** @class */ (function () {
     function UserStore() {
     }
@@ -92,9 +95,34 @@ var UserStore = /** @class */ (function () {
             });
         });
     };
+    UserStore.prototype.authenticate = function (firstName, lastName, password) {
+        return __awaiter(this, void 0, void 0, function () {
+            var sql, conn, result, user;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)';
+                        return [4 /*yield*/, database_1["default"].connect()];
+                    case 1:
+                        conn = _a.sent();
+                        return [4 /*yield*/, conn.query(sql, [firstName, lastName])];
+                    case 2:
+                        result = _a.sent();
+                        conn.release();
+                        if (result.rows.length) {
+                            user = result.rows[0];
+                            if (bcrypt_1["default"].compareSync(password + pepper, user.password)) {
+                                return [2 /*return*/, user];
+                            }
+                        }
+                        return [2 /*return*/, null];
+                }
+            });
+        });
+    };
     UserStore.prototype.create = function (u) {
         return __awaiter(this, void 0, void 0, function () {
-            var sql, conn, result, user, err_3;
+            var sql, conn, hash, result, user, err_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -103,8 +131,9 @@ var UserStore = /** @class */ (function () {
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();
+                        hash = bcrypt_1["default"].hashSync(u.password + pepper, parseInt(saltRounds));
                         return [4 /*yield*/, conn
-                                .query(sql, [u.firstName, u.lastName, u.password])];
+                                .query(sql, [u.firstName, u.lastName, hash])];
                     case 2:
                         result = _a.sent();
                         user = result.rows[0];

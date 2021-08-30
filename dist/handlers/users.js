@@ -62,6 +62,18 @@ var show = function (req, res) { return __awaiter(void 0, void 0, void 0, functi
         }
     });
 }); };
+var authenticate = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, store.authenticate(req.body.firstName, req.body.lastName, req.body.password)];
+            case 1:
+                user = _a.sent();
+                res.json(user);
+                return [2 /*return*/];
+        }
+    });
+}); };
 var create = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var user, newUser, err_1;
     return __generator(this, function (_a) {
@@ -91,5 +103,6 @@ var user_routes = function (app) {
     app.get('/users', index);
     app.get('users/:id', show);
     app.post('/users', create);
+    app.post('/authenticate', authenticate);
 };
 exports["default"] = user_routes;
