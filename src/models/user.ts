@@ -26,7 +26,7 @@ export class UserStore {
     try {
       const sql = 'SELECT * FROM users WHERE id=($1)'
       // @ts-ignore
-      const conn = await Client.connect()
+      const conn = await client.connect()
 
       const result = await conn.query(sql, [id])
 
@@ -42,7 +42,7 @@ export class UserStore {
     try {
       const sql = 'INSERT INTO users (firstName, lastName, password) VALUES($1, $2, $3) RETURNING *'
       // @ts-ignore
-      const conn = await Client.connect()
+      const conn = await client.connect()
 
       const result = await conn
         .query(sql, [u.firstName, u.lastName, u.password])
