@@ -11,11 +11,11 @@ const {
 } = process.env;
 
 
-const client = new Pool {
+const client = new Pool({
   host: POSTGRES_HOST,
   database: POSTGRES_DB,
   user: POSTGRES_USER,
   password: POSTGRES_PASSWORD
-};
+});
 
 export default client;

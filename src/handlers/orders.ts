@@ -6,12 +6,12 @@ const store = new OrderStore();
 
 const getCurrent = async (req: Request, res: Response) => {
   const order = await store.currentOrderUser(req.params.id);
-  res.json(user);
+  res.json(order);
 }
 
 const getCompleted = async (req: Request, res: Response) => {
-  const users = await store.completedOrderUser(req.params.id);
-  res.json(users);
+  const orders = await store.completedOrderUser(req.params.id);
+  res.json(orders);
 }
 
 const order_routes = (app: express.Application) => {
