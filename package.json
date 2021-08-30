@@ -9,6 +9,7 @@
     "test": "jasmine-ts",
     "tsc": "tsc"
   },
+  "type": "module",
   "author": "Udacity",
   "license": "ISC",
   "dependencies": {
