@@ -101,7 +101,7 @@ var UserStore = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)';
+                        sql = 'SELECT * FROM users WHERE firstName=($1) AND lastName=($2)';
                         return [4 /*yield*/, database_1["default"].connect()];
                     case 1:
                         conn = _a.sent();

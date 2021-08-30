@@ -45,7 +45,7 @@ export class UserStore {
 
   async authenticate(firstName: string, lastName: string, password: string): Promise<User | null> {
 
-    const sql = 'SELECT password FROM users WHERE firstName=($1) AND lastName=($2)'
+    const sql = 'SELECT * FROM users WHERE firstName=($1) AND lastName=($2)'
     // @ts-ignore
     const conn = await client.connect()
 
