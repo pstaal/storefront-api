@@ -16,6 +16,11 @@ describe("Product Model", () => {
     expect(store.create).toBeDefined();
   });
 
+  it('should have a products by category method', () => {
+    expect(store.productsByCategory).toBeDefined();
+  });
+
+
   it('create method should add a product', async () => {
     const result = await store.create({
       name: 'Chair',
@@ -48,6 +53,16 @@ describe("Product Model", () => {
       price: 250,
       category: 'Furniture'
     });
+  });
+
+  it('products by catagory method should return the list of products in that category', async () => {
+    const result = await store.productsByCategory("Furniture");
+    expect(result).toEqual([{
+      id: 1,
+      name: 'Chair',
+      price: 250,
+      category: 'Furniture'
+    }]);
   });
 
 });
