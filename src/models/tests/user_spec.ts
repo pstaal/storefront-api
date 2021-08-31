@@ -15,6 +15,10 @@ describe("Product Model", () => {
     expect(store.create).toBeDefined();
   });
 
+  it('should have an authenticate method', () => {
+    expect(store.authenticate).toBeDefined();
+  });
+
   it('create method should add a user', async () => {
     const result = await store.create({
       firstName: 'Peter',
