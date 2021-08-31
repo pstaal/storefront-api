@@ -22,7 +22,7 @@ describe("Product Model", () => {
       password: 'peterstaal'
     });
     expect(result).toEqual({
-      id: "1",
+      id: 1,
       firstName: 'Peter',
       lastName: 'Staal',
       password: 'peterstaal'
@@ -32,7 +32,7 @@ describe("Product Model", () => {
   it('index method should return a list of users', async () => {
     const result = await store.index();
     expect(result).toEqual([{
-      id: "1",
+      id: 1,
       firstName: 'Peter',
       lastName: 'Staal',
       password: 'peterstaal'
@@ -42,7 +42,7 @@ describe("Product Model", () => {
   it('show method should return the correct user', async () => {
     const result = await store.show("1");
     expect(result).toEqual({
-      id: "1",
+      id: 1,
       firstName: 'Peter',
       lastName: 'Staal',
       password: 'peterstaal'
