@@ -5,8 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-const pepper: string | undefined = process.env.BCRYPT_PASSWORD;
-const saltRounds: string | undefined = process.env.SALT_ROUNDS;
+const pepper: string = process.env.BCRYPT_PASSWORD!;
+const saltRounds: string = process.env.SALT_ROUNDS!;
 
 export type User = {
   id?: Number,
