@@ -53,8 +53,8 @@ const create = async (req: Request, res: Response) => {
 
   try {
     const user: User = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       password: req.body.password
     }
 
