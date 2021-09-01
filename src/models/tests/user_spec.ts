@@ -21,14 +21,14 @@ describe("User Model", () => {
 
   it('create method should add a user', async () => {
     const result = await store.create({
-      firstname: 'Peter',
-      lastname: 'Staal',
+      firstname: 'peter',
+      lastname: 'staal',
       password: 'peterstaal'
     });
     expect(result).toEqual({
       id: 1,
-      firstname: 'Peter',
-      lastname: 'Staal',
+      firstname: 'peter',
+      lastname: 'staal',
       password: 'peterstaal'
     });
   });
@@ -37,8 +37,8 @@ describe("User Model", () => {
     const result = await store.index();
     expect(result).toEqual([{
       id: 1,
-      firstname: 'Peter',
-      lastname: 'Staal',
+      firstname: 'peter',
+      lastname: 'staal',
       password: 'peterstaal'
     }]);
   });
@@ -47,8 +47,8 @@ describe("User Model", () => {
     const result = await store.show("1");
     expect(result).toEqual({
       id: 1,
-      firstname: 'Peter',
-      lastname: 'Staal',
+      firstname: 'peter',
+      lastname: 'staal',
       password: 'peterstaal'
     });
   });

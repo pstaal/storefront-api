@@ -23,15 +23,15 @@ describe("Product Model", () => {
 
   it('create method should add a product', async () => {
     const result = await store.create({
-      name: 'Chair',
+      name: 'chair',
       price: 250,
-      category: 'Furniture'
+      category: 'furniture'
     });
     expect(result).toEqual({
       id: 1,
-      name: 'Chair',
+      name: 'chair',
       price: 250,
-      category: 'Furniture'
+      category: 'furniture'
     });
   });
 
@@ -39,9 +39,9 @@ describe("Product Model", () => {
     const result = await store.index();
     expect(result).toEqual([{
       id: 1,
-      name: 'Chair',
+      name: 'chair',
       price: 250,
-      category: 'Furniture'
+      category: 'furniture'
     }]);
   });
 
@@ -49,9 +49,9 @@ describe("Product Model", () => {
     const result = await store.show("1");
     expect(result).toEqual({
       id: 1,
-      name: 'Chair',
+      name: 'chair',
       price: 250,
-      category: 'Furniture'
+      category: 'furniture'
     });
   });
 
@@ -59,9 +59,9 @@ describe("Product Model", () => {
     const result = await store.productsByCategory("Furniture");
     expect(result).toEqual([{
       id: 1,
-      name: 'Chair',
+      name: 'chair',
       price: 250,
-      category: 'Furniture'
+      category: 'furniture'
     }]);
   });
 
