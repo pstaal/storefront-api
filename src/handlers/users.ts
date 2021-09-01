@@ -67,11 +67,27 @@ const create = async (req: Request, res: Response) => {
   }
 }
 
+const addProduct = async (_req: Request, res: Response) => {
+  const orderId: string = _req.params.orderID
+  const productId: string = _req.body.productId
+  const quantity: number = parseInt(_req.body.quantity)
+  const userId: string =_req.params.userID
+
+  try {
+    const addedProduct = await store.addProduct(quantity, userId, orderId, productId)
+    res.json(addedProduct)
+  } catch(err) {
+    res.status(400)
+    res.json(err)
+  }
+} 
+
 const user_routes = (app: express.Application) => {
   app.get('/users', index);
   app.get('users/:id', show);
   app.post('/users', create);
   app.post('/authenticate', authenticate);
+  app.post('/users/:userID/orders/:orderID/products', addProduct)
 }
 
 

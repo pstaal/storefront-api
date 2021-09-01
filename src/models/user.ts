@@ -66,6 +66,25 @@ export class UserStore {
     return null;
   }
 
+  async addProduct(quantity: number, userId: string, productId: string, orderId: string): Promise<Order> {
+    try {
+      const sql = 'INSERT INTO order_products (quantity, user_id, order_id, product_id) VALUES($1, $2, $3, $4) RETURNING *'
+      //@ts-ignore
+      const conn = await Client.connect()
+
+      const result = await conn
+          .query(sql, [quantity, userId, orderId, productId])
+
+      const order = result.rows[0]
+
+      conn.release()
+
+      return order
+    } catch (err) {
+      throw new Error(`Could not add product ${productId} to order ${orderId}: ${err}`)
+    }
+  }
+
   async create(u: User): Promise<User> {
     // try {
       const sql = 'INSERT INTO users (firstname, lastname, password) VALUES($1, $2, $3) RETURNING *'
