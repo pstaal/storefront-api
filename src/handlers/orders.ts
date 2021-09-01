@@ -22,6 +22,23 @@ const getCurrent = async (req: Request, res: Response) => {
   res.json(order);
 }
 
+const create = async (req: Request, res: Response) => {
+  try {
+      const order: Order = {
+          product_id: req.params.productID,
+          quantity: req.body.quantity,
+          user_id: req.params.userID,
+          status: "active"
+      }
+
+      const newOrder= await store.create(order)
+      res.json(newOrder)
+  } catch(err) {
+      res.status(400)
+      res.json(err)
+  }
+}
+
 const destroy = async (req: Request, res: Response) => {
   const deleted = await store.delete(req.body.id)
   res.json(deleted)
@@ -46,6 +63,7 @@ const order_routes = (app: express.Application) => {
   app.get('/currentorder/:id', getCurrent);
   app.get('/completedorders/:id', getCompleted);
   app.delete('/orders/:id', destroy);
+  app.post('/orders/:userID/:productID', create)
 }
 
 
