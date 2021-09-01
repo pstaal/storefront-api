@@ -67,6 +67,11 @@ const create = async (req: Request, res: Response) => {
   }
 }
 
+const destroy = async (req: Request, res: Response) => {
+  const deleted = await store.delete(req.body.id)
+  res.json(deleted)
+}
+
 const addProduct = async (_req: Request, res: Response) => {
   const orderId: string = _req.params.orderID
   const productId: string = _req.body.productId
@@ -87,7 +92,8 @@ const user_routes = (app: express.Application) => {
   app.get('users/:id', show);
   app.post('/users', create);
   app.post('/authenticate', authenticate);
-  app.post('/users/:userID/orders/:orderID/products', addProduct)
+  app.post('/users/:userID/orders/:orderID/products', addProduct);
+  app.delete('/users/:id', destroy);
 }
 
 

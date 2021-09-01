@@ -22,6 +22,11 @@ const getCurrent = async (req: Request, res: Response) => {
   res.json(order);
 }
 
+const destroy = async (req: Request, res: Response) => {
+  const deleted = await store.delete(req.body.id)
+  res.json(deleted)
+}
+
 const getCompleted = async (req: Request, res: Response) => {
   try {
     const authorizationHeader = req.headers.authorization
@@ -40,6 +45,7 @@ const getCompleted = async (req: Request, res: Response) => {
 const order_routes = (app: express.Application) => {
   app.get('/currentorder/:id', getCurrent);
   app.get('/completedorders/:id', getCompleted);
+  app.delete('/orders/:id', destroy);
 }
 
 

@@ -38,6 +38,24 @@ export class ProductStore {
     }
   }
 
+  async delete(id: string): Promise<Product> {
+    try {
+  const sql = 'DELETE FROM products WHERE id=($1)'
+  // @ts-ignore
+  const conn = await Client.connect()
+
+  const result = await conn.query(sql, [id])
+
+  const product = result.rows[0]
+
+  conn.release()
+
+  return product
+    } catch (err) {
+        throw new Error(`Could not delete product ${id}. Error: ${err}`)
+    }
+}
+
   async create(p: Product): Promise<Product> {
     try {
       const sql = 'INSERT INTO products (name, price, category) VALUES($1, $2, $3) RETURNING *'

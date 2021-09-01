@@ -35,6 +35,11 @@ const create = async (req: Request, res: Response) => {
   }
 }
 
+const destroy = async (req: Request, res: Response) => {
+  const deleted = await store.delete(req.body.id)
+  res.json(deleted)
+}
+
 const showCategory = async (req: Request, res: Response) => {
   const product = await store.productsByCategory(req.params.category);
   res.json(product);
@@ -45,6 +50,7 @@ const product_routes = (app: express.Application) => {
   app.get('products/:id', show);
   app.post('/products', create);
   app.get('/products/category/:category', showCategory);
+  app.delete('/products/:id', destroy);
 }
 
 
