@@ -113,26 +113,25 @@ export class UserStore {
   }
 
   async create(u: User): Promise<User> {
-    // try {
+     try {
       const sql = 'INSERT INTO users (firstname, lastname, password) VALUES($1, $2, $3) RETURNING *'
-    //   // @ts-ignore
+        // @ts-ignore
       const conn = await client.connect();
-    //   const hash = bcrypt.hashSync(
-    //     u.password + pepper,
-    //     parseInt(saltRounds)
-    //   );
+      const hash = bcrypt.hashSync(
+        u.password + pepper,
+       parseInt(saltRounds)
+       );
 
-      const result = await conn
-        .query(sql, [u.firstname, u.lastname, u.password])
+      const result = await conn.query(sql, [u.firstname, u.lastname, hash])
 
       const user = result.rows[0]
 
       conn.release()
 
       return user
-    // } catch (err) {
-    //   throw new Error(`Could not add new user. Error: ${err}`)
-    // }
+     } catch (err) {
+      throw new Error(`Could not add new user. Error: ${err}`)
+     }
   }
 
 };
