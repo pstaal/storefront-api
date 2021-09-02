@@ -2,7 +2,7 @@ import client from "../database";
 
 export class DashboardQueries {
   // Get all products that have been included in orders
-  async topFivePopularProducts(): Promise<{id: number, name: string, category: string}[]> {
+  async topFivePopularProducts(): Promise<{id: number, name: string, category: string, volume: number, orders_placed: number}[]> {
     try {
       //@ts-ignore
       const conn = await Client.connect()
