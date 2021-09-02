@@ -15,6 +15,14 @@ export type User = {
   password: String
 }
 
+export type OrderProduct {
+ id?: Number,
+ quantity: Number,
+ user_id: String,
+ order_id: String,
+ product_id: String
+}
+
 export class UserStore {
 
   async index(): Promise<User[]> {
@@ -85,7 +93,7 @@ export class UserStore {
     return null;
   }
 
-  async addProduct(quantity: number, userId: string, productId: string, orderId: string): Promise<Order> {
+  async addProduct(quantity: number, userId: string, productId: string, orderId: string): Promise<OrderProduct> {
     try {
       const sql = 'INSERT INTO order_products (quantity, user_id, order_id, product_id) VALUES($1, $2, $3, $4) RETURNING *'
       //@ts-ignore
