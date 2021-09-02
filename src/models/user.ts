@@ -15,7 +15,7 @@ export type User = {
   password: String
 }
 
-export type OrderProduct {
+export type OrderProduct = {
  id?: Number,
  quantity: Number,
  user_id: String,
