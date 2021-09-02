@@ -2,6 +2,7 @@
 import { Order, OrderStore } from '../order'
 import { Product, ProductStore } from '../product';
 import { User, UserStore } from '../user';
+import client from '../../database'
 
 const orderstore = new OrderStore();
 const userstore = new UserStore();
@@ -19,13 +20,12 @@ describe("Order Model", () => {
     orderstore.create({product_id: "2", quantity: 1, user_id: "1", status: "active"});
   });
 
-  afterAll(function() {
-   userstore.delete("1");
-   userstore.delete("2");
-   productstore.delete("1");
-   productstore.delete("2");
-   orderstore.delete("1");
-   orderstore.delete("2");
+  afterAll( async function() {
+    const conn = await client.connect();
+    const sql =
+      'DELETE FROM users; ALTER SEQUENCE users_id_seq RESTART WITH 1; DELETE FROM products;  ALTER SEQUENCE products_id_seq RESTART WITH 1;';
+    await conn.query(sql);
+    conn.release();
   });
 
   

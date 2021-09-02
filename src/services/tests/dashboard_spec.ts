@@ -2,6 +2,7 @@ import { DashboardQueries } from "../dashboard";
 import { UserStore } from "../../models/user";
 import { ProductStore } from "../../models/product";
 import { OrderStore } from "../../models/order";
+import client from '../../database'
 
 const dashboard = new DashboardQueries();
 const orderstore = new OrderStore();
@@ -33,21 +34,12 @@ describe("Dashboard methods", () => {
     userstore.addProduct( 1, "4", "2", "6");
   });
 
-  afterAll(function() {
-   userstore.delete("1");
-   userstore.delete("2");
-   userstore.delete("3");
-   userstore.delete("4");
-   productstore.delete("1");
-   productstore.delete("2");
-   productstore.delete("3");
-   productstore.delete("4");
-   orderstore.delete("1");
-   orderstore.delete("2");
-   orderstore.delete("3");
-   orderstore.delete("4");
-   orderstore.delete("5");
-   orderstore.delete("6");
+  afterAll( async function() {
+    const conn = await client.connect();
+    const sql =
+      'DELETE FROM users; ALTER SEQUENCE users_id_seq RESTART WITH 1; DELETE FROM products;  ALTER SEQUENCE products_id_seq RESTART WITH 1;';
+    await conn.query(sql);
+    conn.release();
   });
 
   
@@ -65,7 +57,7 @@ describe("Dashboard methods", () => {
       orders_placed: 2},
       {id: 4, 
       name: "smartphone", 
-      category: "ftechnology", 
+      category: "technology", 
       volume: 10, 
       orders_placed: 1},
       {id: 2, 
@@ -75,7 +67,7 @@ describe("Dashboard methods", () => {
       orders_placed: 2},
       {id: 3, 
       name: "computer", 
-      category: "ftechnology", 
+      category: "technology", 
       volume: 1, 
       orders_placed: 1}
      ]);
