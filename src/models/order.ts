@@ -31,7 +31,7 @@ export class OrderStore {
     try {
   const sql = 'INSERT INTO orders (product_id, quantity, user_id, status) VALUES($1, $2, $3, $4) RETURNING *'
   // @ts-ignore
-  const conn = await Client.connect()
+  const conn = await client.connect()
 
   const result = await conn
       .query(sql, [o.product_id, o.quantity, o.user_id, o.status])
@@ -50,7 +50,7 @@ export class OrderStore {
     try {
   const sql = 'DELETE FROM orders WHERE id=($1)'
   // @ts-ignore
-  const conn = await Client.connect()
+  const conn = await client.connect()
 
   const result = await conn.query(sql, [id])
 

@@ -42,7 +42,7 @@ export class ProductStore {
     try {
   const sql = 'DELETE FROM products WHERE id=($1)'
   // @ts-ignore
-  const conn = await Client.connect()
+  const conn = await client.connect()
 
   const result = await conn.query(sql, [id])
 

@@ -58,7 +58,7 @@ export class UserStore {
     try {
   const sql = 'DELETE FROM users WHERE id=($1)'
   // @ts-ignore
-  const conn = await Client.connect()
+  const conn = await client.connect()
 
   const result = await conn.query(sql, [id])
 
@@ -97,7 +97,7 @@ export class UserStore {
     try {
       const sql = 'INSERT INTO order_products (quantity, user_id, order_id, product_id) VALUES($1, $2, $3, $4) RETURNING *'
       //@ts-ignore
-      const conn = await Client.connect()
+      const conn = await client.connect()
 
       const result = await conn
           .query(sql, [quantity, userId, orderId, productId])
