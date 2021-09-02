@@ -55,7 +55,7 @@ describe("Dashboard methods", () => {
     expect(dashboard.topFivePopularProducts).toBeDefined();
   });
 
-  it('should return a top five most popular products', () => {
+  it('should return a top five most popular products', async () => {
     const result = await dashboard.topFivePopularProducts();
     expect(result).toEqual([
       {id: 1, 
