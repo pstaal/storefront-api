@@ -32,4 +32,6 @@ if(ENV === 'dev') {
   })
 }
 
+console.log("this is the client", client);
+
 export default client;

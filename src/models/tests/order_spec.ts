@@ -16,7 +16,7 @@ describe("Order Model", () => {
     productstore.create({name: "chair", price: 25, category: "furniture"});
     productstore.create({name: "table", price: 50, category: "furniture"});
     orderstore.create({product_id: "1", quantity: 5, user_id: "1", status: "complete"});
-    orderstore.create({product_id: "2", quantity: 1, user_id: "1", status: "active"};)
+    orderstore.create({product_id: "2", quantity: 1, user_id: "1", status: "active"});
   });
 
   afterAll(function() {
@@ -33,7 +33,7 @@ describe("Order Model", () => {
     expect(orderstore.currentOrderUser).toBeDefined();
   });
 
-  it('should return the current orders of this user', () => {
+  it('should return the current orders of this user', async () => {
     const result = await orderstore.currentOrderUser("1");
     expect(result).toEqual({
       id: 2,
@@ -48,7 +48,7 @@ describe("Order Model", () => {
     expect(orderstore.completedOrderUser).toBeDefined();
   });
 
-  it('should return all the completed orders of this user', () => {
+  it('should return all the completed orders of this user', async () => {
     const result = await orderstore.completedOrderUser("1");
     expect(result).toEqual([{
       id: 1,
