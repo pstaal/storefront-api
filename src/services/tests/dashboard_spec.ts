@@ -12,7 +12,7 @@ describe("Dashboard methods", () => {
 
   beforeAll(function() {
     userstore.create({firstname: "peter", lastname: "staal", password: "test"});
-    userstore.create({firstname: "wietske", lastname: "de lange", password: "test2"});\
+    userstore.create({firstname: "wietske", lastname: "de lange", password: "test2"});
     userstore.create({firstname: "joppe", lastname: "staal", password: "test3"});
     userstore.create({firstname: "noud", lastname: "staal", password: "test4"});
     productstore.create({name: "chair", price: 25, category: "furniture"});
@@ -56,7 +56,7 @@ describe("Dashboard methods", () => {
   });
 
   it('should return a top five most popular products', () => {
-    const result = await dashboard.topFivePopularProducts("1");
+    const result = await dashboard.topFivePopularProducts();
     expect(result).toEqual([
       {id: 1, 
       name: "chair", 
@@ -81,6 +81,6 @@ describe("Dashboard methods", () => {
      ]);
   });
 
-  
+
 });
 
