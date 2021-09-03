@@ -56,7 +56,7 @@ describe("Product Model", () => {
   });
 
   it('products by catagory method should return the list of products in that category', async () => {
-    const result = await store.productsByCategory("Furniture");
+    const result = await store.productsByCategory("furniture");
     expect(result).toEqual([{
       id: 1,
       name: 'chair',
