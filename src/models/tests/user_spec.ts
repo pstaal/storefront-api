@@ -33,35 +33,23 @@ describe("User Model", () => {
       lastname: 'staal',
       password: 'peterstaal'
     });
+    const check = result.firstname
 
-    expect(result).toEqual({
-      id: 1,
-      firstname: 'peter',
-      lastname: 'staal',
-      password: hash
-    });
+    expect(check).toEqual('peter');
   });
 
   it('index method should return a list of users', async () => {
     const result = await store.index();
- 
-    expect(result).toEqual([{
-      id: 1,
-      firstname: 'peter',
-      lastname: 'staal',
-      password: hash
-    }]);
+    const check = result[0].firstname
+
+    expect(check).toEqual('peter');
   });
 
   it('show method should return the correct user', async () => {
     const result = await store.show('1');
+    const check = result.firstname
   
-    expect(result).toEqual({
-      id: 1,
-      firstname: 'peter',
-      lastname: 'staal',
-      password: hash
-    });
+    expect(check).toEqual('peter');
   });
 
 });
