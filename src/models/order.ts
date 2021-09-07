@@ -13,11 +13,11 @@ export class OrderStore {
 
   async currentOrderUser(user_id: string): Promise<Order> {
     try {
-      const sql = 'SELECT * FROM orders WHERE user_id=($1) AND status="active"'
+      const sql = 'SELECT * FROM orders WHERE user_id=($1) AND status=($2)'
       // @ts-ignore
       const conn = await client.connect()
 
-      const result = await conn.query(sql, [user_id])
+      const result = await conn.query(sql, [user_id, 'active'])
 
       conn.release()
 
@@ -67,11 +67,11 @@ export class OrderStore {
 
   async completedOrderUser(user_id: string): Promise<Order[]> {
     try {
-      const sql = 'SELECT * FROM orders WHERE user_id=($1) AND status="complete"'
+      const sql = 'SELECT * FROM orders WHERE user_id=($1) AND status=($2)'
       // @ts-ignore
       const conn = await client.connect()
 
-      const result = await conn.query(sql, [user_id])
+      const result = await conn.query(sql, [user_id, 'complete'])
 
       conn.release()
 

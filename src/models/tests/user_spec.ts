@@ -34,11 +34,6 @@ describe("User Model", () => {
       password: 'peterstaal'
     });
 
-    const hash = bcrypt.hashSync(
-      'peterstaal' + pepper,
-     parseInt(saltRounds)
-     );
-
     expect(result).toEqual({
       id: 1,
       firstname: 'peter',
@@ -49,10 +44,7 @@ describe("User Model", () => {
 
   it('index method should return a list of users', async () => {
     const result = await store.index();
-    const hash = bcrypt.hashSync(
-      'peterstaal' + pepper,
-     parseInt(saltRounds)
-     );
+ 
     expect(result).toEqual([{
       id: 1,
       firstname: 'peter',
@@ -62,11 +54,8 @@ describe("User Model", () => {
   });
 
   it('show method should return the correct user', async () => {
-    const result = await store.show("1");
-    const hash = bcrypt.hashSync(
-      'peterstaal' + pepper,
-     parseInt(saltRounds)
-     );
+    const result = await store.show('1');
+  
     expect(result).toEqual({
       id: 1,
       firstname: 'peter',

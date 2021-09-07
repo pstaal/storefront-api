@@ -28,7 +28,7 @@ const create = async (req: Request, res: Response) => {
           product_id: req.params.productID,
           quantity: req.body.quantity,
           user_id: req.params.userID,
-          status: "active"
+          status: 'active'
       }
 
       const newOrder= await store.create(order)
