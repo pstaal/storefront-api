@@ -1,4 +1,4 @@
-import { DashboardQueries } from "../dashboard";
+import { DashboardQueries, OrderProducts } from "../dashboard";
 import { UserStore } from "../../models/user";
 import { ProductStore } from "../../models/product";
 import { OrderStore } from "../../models/order";

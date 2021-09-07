@@ -1,8 +1,16 @@
 import client from "../database";
 
+export type OrderProducts = {
+  id?: Number,
+  name: string,
+  category: Number,
+  volume: Number,
+  orders_placed: Number
+};
+
 export class DashboardQueries {
   // Get all products that have been included in orders
-  async topFivePopularProducts(): Promise<{id: number, name: string, category: string, volume: number, orders_placed: number}[]> {
+  async topFivePopularProducts(): Promise<OrderProducts[]> {
     try {
       //@ts-ignore
       const conn = await client.connect()
