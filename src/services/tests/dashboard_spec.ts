@@ -52,23 +52,23 @@ describe("Dashboard methods", () => {
       {id: 1, 
       name: 'chair', 
       category: 'furniture', 
-      volume: '17', 
-      orders_placed: '2'},
+      volume: 17, 
+      orders_placed: 2},
       {id: 4, 
       name: 'smartphone', 
       category: 'technology', 
-      volume: "10", 
-      orders_placed: "1"},
+      volume: 10, 
+      orders_placed: 1},
       {id: 2, 
       name: 'table', 
       category: 'furniture', 
-      volume: "2", 
-      orders_placed: "2"},
+      volume: 2, 
+      orders_placed: 2},
       {id: 3, 
       name: 'computer', 
       category: 'technology', 
-      volume: "1", 
-      orders_placed: "1"}
+      volume: 1, 
+      orders_placed: 1}
      ]);
   });
 

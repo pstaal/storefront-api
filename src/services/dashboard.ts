@@ -1,11 +1,11 @@
 import client from "../database";
 
 export type OrderProducts = {
-  id?: Number,
+  id?: number,
   name: string,
   category: string,
-  volume: Number,
-  orders_placed: Number
+  volume: number,
+  orders_placed: number
 };
 
 export class DashboardQueries {

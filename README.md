@@ -17,7 +17,9 @@ The app uses the following technologies:
 
 ## Testing
 
-In package.json there is a script "test" that sets up the tables in a test database via db-migrate, then tests the different models, and afterwards cleans the database again.
+To run all the tests the user first has to set up a new database specifically for testing in postgresql, and create a user to access that database. The user can be added in the .env file in the variable POSTGRES_USER, the password for that user in variable POSTGRES_PASSWORD and the test database name in variable POSTGRES_TEST_DB. In package.json there is a script "test" that sets up the tables in a test database via db-migrate, then tests the different models, and afterwards resets the database again.
+
+The user also has to create a production database that is used for the app in production. make sure that the same user has access to the production database. in the .env add the name of this database to the variable POSTGRES_DB. Also make sure to change the variables TOKEN_SECRET and BCRYPT_PASSWORD.
 
 ## Running the app
 
