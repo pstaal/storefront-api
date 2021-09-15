@@ -8,22 +8,22 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Products
 
-- Index
-- Show
-- Create [token required]
-- [OPTIONAL] Top 5 most popular products
-- [OPTIONAL] Products by category (args: product category)
+- Index GET method ('/products'): returns array of products
+- Show GET method ('products/:id'): returns a singel product object
+- Create [token required] POST method ('/products'): creates and returns product object
+- Top 5 most popular products GET method ('/top_five_products'): returns an array of order_products
+- Products by category (args: product category) GET method ('/products/category/:category'): returns an array of products objects
 
 #### Users
 
-- Index [token required]
-- Show [token required]
-- Create N[token required]
+- Index [token required] GET method ('/users'): returns an array of users
+- Show [token required] GET method ('users/:id'): returns a single user
+- Create [token required] POST method ('/users'): returns the single user that is created in the database
 
 #### Orders
 
-- Current Order by user (args: user id)[token required]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+- Current Order by user (args: user id)[token required] GET method ('/currentorder/:id'): returns an order
+- [OPTIONAL] Completed Orders by user (args: user id)[token required] GET method ('/completedorders/:id'): returns an array of completed orders
 
 ## Data Shapes
 
