@@ -10,7 +10,7 @@ const saltRounds: string = process.env.SALT_ROUNDS!;
 
 const store = new UserStore();
 
-describe("User Model", () => {
+describe("User Model and endpoints", () => {
   it('should have an index method', () => {
     expect(store.index).toBeDefined();
   });
