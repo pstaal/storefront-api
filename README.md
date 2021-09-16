@@ -1,5 +1,9 @@
 # Storefront Backend Project
 
+## The api
+
+This is an api that provides endpoints to store and retrieve users, products, and orders. It could function as the backend of an ecommerce application.
+
 ## Getting Started
 
 This repo contains a basic Node and Express app to get you started in constructing an API. To get started, clone this repo and run `yarn` in your terminal at the project root.
@@ -17,7 +21,7 @@ The app uses the following technologies:
 
 ## Dependencies
 
-Please make sure to install the following dependencies: bcrypt, jasmine, dotenv, node, express, jsonwebtoken, db-migrate, pg, typescript and body-parser. Also make sure to have the types for these packages installed.
+Please make sure to install the following dependencies: bcrypt, jasmine, supertest, dotenv, node, express, jsonwebtoken, db-migrate, pg, typescript and body-parser. Also make sure to have the types for these packages installed.
 
 ## Testing
 
