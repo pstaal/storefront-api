@@ -16,7 +16,7 @@ describe("User Endpoints", () => {
       .auth('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiV2F0ZXIgQm90dGxlIiwicHJpY2UiOiIyLjk5In0.Flq3cKKZoTs8hWcAaTqJbvcAaJpb3FVi2IXU7rCzvvU', { type: 'bearer' })
       .send(user)
       .expect(200)
-      .then(async (res: Response) => {
+      .then(async (res: any) => {
           expect(res.body).toBeTruthy;
       })
       .catch((error: Error) => console.error(error.message));
