@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/jasmine": "^3.8.2",
+    "@types/supertest": "^2.0.11",
     "jasmine": "^3.9.0",
     "jasmine-spec-reporter": "^6.0.0",
     "jasmine-ts": "^0.3.0",
