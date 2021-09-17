@@ -14,9 +14,6 @@ const {
 
 // let client!: Pool 
 
-console.log(ENV==="test");
-
-console.log(ENV);
 
 const client: Pool = new Pool({
   host: POSTGRES_HOST,
