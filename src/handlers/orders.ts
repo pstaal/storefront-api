@@ -46,14 +46,16 @@ const destroy = async (req: Request, res: Response) => {
 
 const getCompleted = async (req: Request, res: Response) => {
   try {
-    const authorizationHeader = req.headers.authorization
+    const TOKEN_SECRET = (process.env.TOKEN_SECRET as unknown) as Secret;
+    //const authorizationHeader = req.headers.authorization
+    const authorizationHeader = (req.headers.authorization as unknown) as string;
     const token = authorizationHeader.split(' ')[1]
-    jwt.verify(token, process.env.TOKEN_SECRET)
-  } catch (err) {
+    jwt.verify(token, TOKEN_SECRET)
+} catch(err) {
     res.status(401)
     res.json('Access denied, invalid token')
     return
-  }
+}
 
   const orders = await store.completedOrderUser(req.params.id);
   res.json(orders);

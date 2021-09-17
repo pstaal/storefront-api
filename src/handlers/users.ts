@@ -10,24 +10,16 @@ dotenv.config();
 
 const index = async (req: Request, res: Response) => {
   try {
-    const authorizationHeader = req.headers.authorization
+    const TOKEN_SECRET = (process.env.TOKEN_SECRET as unknown) as Secret;
+    //const authorizationHeader = req.headers.authorization
+    const authorizationHeader = (req.headers.authorization as unknown) as string;
     const token = authorizationHeader.split(' ')[1]
-    jwt.verify(token, process.env.TOKEN_SECRET)
+    jwt.verify(token, TOKEN_SECRET)
 } catch(err) {
     res.status(401)
     res.json('Access denied, invalid token')
     return
 }
-
-  try {
-    const authorizationHeader = req.headers.authorization
-    const token = authorizationHeader.split(' ')[1]
-    jwt.verify(token, process.env.TOKEN_SECRET)
-  } catch (err) {
-    res.status(401)
-    res.json('Access denied, invalid token')
-    return
-  }
 
   const users = await store.index();
   res.json(users);
@@ -35,24 +27,16 @@ const index = async (req: Request, res: Response) => {
 
 const show = async (req: Request, res: Response) => {
   try {
-    const authorizationHeader = req.headers.authorization
+    const TOKEN_SECRET = (process.env.TOKEN_SECRET as unknown) as Secret;
+    //const authorizationHeader = req.headers.authorization
+    const authorizationHeader = (req.headers.authorization as unknown) as string;
     const token = authorizationHeader.split(' ')[1]
-    jwt.verify(token, process.env.TOKEN_SECRET)
+    jwt.verify(token, TOKEN_SECRET)
 } catch(err) {
     res.status(401)
     res.json('Access denied, invalid token')
     return
 }
-
-  try {
-    const authorizationHeader = req.headers.authorization
-    const token = authorizationHeader.split(' ')[1]
-    jwt.verify(token, process.env.TOKEN_SECRET)
-  } catch (err) {
-    res.status(401)
-    res.json('Access denied, invalid token')
-    return
-  }
 
   const user = await store.show(req.params.id);
   res.json(user);
